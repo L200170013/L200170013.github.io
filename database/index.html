@@ -80,7 +80,7 @@
           <div class="resume-content">
             <h3 class="mb-0">Apa itu MYSQL ?</h3>
             <p> MySQL adalah sistem manajemen database relasional open source (RDBMS) dengan client-server model. Sedangkan RDBMS merupakan software untuk membuat dan mengelola database berdasarkan pada model relasional.
-				Sebelum dibahas lebih lanjut, ada baiknya bagi kita untuk mengetahui sejarah singkat MySQL. MySQL dibaca MY-ES-KYOO-EL [maɪˌɛsˌkjuːˈɛl]. Beberapa orang bahkan membaca MySQL seperti sedang menyebutkan “my sequel”. <br>
+				Sebelum dibahas lebih lanjut, ada baiknya bagi kita untuk mengetahui sejarah singkat MySQL. MySQL dibaca MY-ES-KYOO-EL [ma???s?kju?'?l]. Beberapa orang bahkan membaca MySQL seperti sedang menyebutkan “my sequel”. <br>
 				MySQL AB, sebuah perusahaan asal Swedia, menjadi yang pertama dalam mengembangkan MySQL di tahun 1994. Hak kepemilikan MySQL kemudian diambil secara menyeluruh oleh perusahaan teknologi Amerika Serikat, Sun Microsystems, ketika mereka membeli MySQL AB pada tahun 2008. 
 				Di tahun 2010, Oracle yang adalah salah satu perusahaan teknologi terbesar di Amerika Serikat mengakuisisi Sun Microsystems. 
 				Semenjak itulah, MySQL sepenuhnya dimiliki oleh Oracle.</p>
@@ -254,6 +254,55 @@
     </section>
 
     <hr class="m-0">
+	<section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+      <div class="w-100">
+        <h2 class="mb-5">FULL TEXT SEARCHING</h2>
+Salah satu metode yang dapat digunakan untuk melakukan proses pencarian adalah dengan memanfaatkan fungsi indexing pada database.<br>
+Full Text Searching  merupakan proses pencarian data  pada database  MySQL.
+<br>
+        <div class="subheading mb-3">DEFINISI</div>
+        <p>Berikut adalah definisi atau pengertian dari beberapa istilah yang sering digunakan dalam full text searching  : <br>
+a.	MySQL, adalah sebuah perangkat lunak sistem manajemen basis data SQL atau DBMS yang bersifat multithread dan multiuser yang dikembangkan pertama kali oleh Michael Wildenius, bersifat free software dengan lisensi dibawah GPU/GPL (General Public license).<br>
+b.	Full Text, adalah fungsionalitas yang terdapat pada database (dalam hal ini database MySQL) yang memungkinkan user untuk melakukan pencarian tertentu dalam tabel dengan cara melakukan perbandingan string.<br>
+c.	Boolean Search, adalah sebuah metode pencarian yang memungkinkan pengguna untuk mempersempit hasil pencarian dengan menggunakan operator Boolean.<br>
+d.	Boolean Operator, adalah sistem logis deduktif yang digunakan untuk mempersempit hasil pencarian dengan menggunakan operator AND, OR, XOR dan lainnya. <br>
+		</p>
+		<div class="subheading mb-3">IMPLEMENTASI</div><br>
+		Contoh Full-text Searching di database MySQL, adapun struktur tabel article yang digunakan adalah sebagai berikut :<br>
+		CREATE TABLE IF NOT EXISTS article (id int(10) NOT NULL AUTO_INCREMENT, <br>
+		title varchar(150) NOT NULL, <br>
+		body text NOT NULL, PRIMARY KEY (id))<br>
+		ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;<br>
+		Syarat untuk dapat menjalankan fungsi Full---Text Searching adalah dengan menambahkan index dengan tipe FULLTEXT pada field yang ingin dicari. Berikut perintah untuk menambahkan Full-Text Indexing pada field title dan body pada tabel article :
+		<br>ALTER TABLE article ADD FULLTEXT(title);<br>ALTER TABLE article ADD FULLTEXT(body, title);
+		
+		<br><br>Berikut beberapa tipe penggunaan Full-Text Searching dengan menggunakan data contoh pada tabel article :<br><br>
+a.	Natural Language<br>
+Secara default penggunaan Full-Text Searching termasuk dalam tipe Natural Language.<br>
+Contoh penggunaan Full-Text Searching tipe Natural Language :<br>
+SELECT * FROM article WHERE MATCH (title) AGAINST ('tutorial');<br>
+atau<br>
+SELECT * FROM article WHERE MATCH(title) AGAINST('tutorial' IN NATURAL LANGUAGE MODE);<br>
+b.	Boolean<br>
+Tipe Boolean mengijinkan penggunaan operator pada keyword pencarian seperti – atau +.<br>
+Berikut daftar operator yang dapat digunakan :<br>
+1. [non operator] secara default memiliki arti “atau” / “or” ;<br>
+2. + keyword harus terdapat pada semua hasil yang didapat;<br>
+3. - keyword tidak boleh ada pada hasil yang didapat;<br>
+4. > keyword termasuk pada hasil yang didapat dengan urutan berdasar ranking secara increase;<br>
+5. < keyword termasuk pada hasil yang didapat dengan urutan berdasar ranking secara decrease;<br>
+6. () digunakan untuk melakukan grouping/pengelompokan dan dapat menambahkanoperator lain untuk meningkatkan relevansi hasil pencarian;<br>
+7. ~ berfungsi sebagai operator negasi, jika sebuah keyword diberikan tanda ~,mengakibatkan relevansi/score minus;<br>
+8. * merupakan operator wildcard;<br>
+9. “ digunakan pada awal dan akhir keyword yang terdiri dari dua kata atau lebih<br>
+Contoh penggunaan Full-Text Searching tipe Boolean :<br>
+SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('+mysql -database' IN BOOLEAN MODE);<br>
+c.	Query Expansion<br>
+Query Expansion merupakan salah satu fitur yang bias digunakan ketika pencarian hanya mengandung keyword yang sedikit (hanya satu kata).
+
+
+        </div>
+    </section>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
